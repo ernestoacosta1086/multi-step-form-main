@@ -1,6 +1,10 @@
 /* General CSS*/
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap');
 
+/*Components imports*/
+@import './css/side-bar.css';
+@import './css/personal-information.css';
+
 :root {
   --color-neutral-100: hsl(0, 0%, 100%);
   --color-neutral-x-100: hsl(231, 100%, 99%);
@@ -11,7 +15,7 @@
   --color-marine-blue: hsl(213, 96%, 18%);
   --color-purplish-blue: hsl(243, 100%, 62%);
   --color-pastel-blue: hsl(228, 100%, 84%);
-  --light-blue: hsl(206, 94%, 87%);
+  --color-sky-blue: hsl(206, 94%, 87%);
   --color-strawberry-red: hsl(354, 84%, 57%);
 
   --font-family-base: 'Ubuntu', sans-serif;
@@ -21,14 +25,14 @@
   --font-weight-bold-700: 700;
 
   --font-size-small: 0.75rem;
-  --font-size-medium: 1rem;
+  --font-size-medium: 0.875rem;
   --font-size-large: 2rem;
 
   --letter-spacing-small: -1.5px;
   --letter-spacing-medium: 1px;
   --letter-spacing-large: 2.6px;
 
-  --line-height-small: 1.56rem;
+  --line-height-small: 2rem;
   --line-height-medium: 4.5rem;
   --line-height-body: 3.25rem;
   --line-height-heading: 6.43rem;
@@ -55,6 +59,8 @@
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  background-color: var(--color-neutral-xx-100);
+  font-family: var(--font-family-base);
 }
 /*
   5. Improve media defaults
@@ -106,4 +112,17 @@ h6 {
   position: absolute;
   white-space: nowrap;
   width: 1px;
+}
+
+/*Common style*/
+main {
+  width: clamp(40rem, 60%, 60rem);
+  background-color: var(--color-neutral-100);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 0.6rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
 }
