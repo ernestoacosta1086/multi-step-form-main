@@ -26,6 +26,7 @@
 
   --font-size-small: 0.75rem;
   --font-size-medium: 0.875rem;
+  --font-size-base: 1rem;
   --font-size-large: 2rem;
 
   --letter-spacing-small: -1.5px;
@@ -125,4 +126,9 @@ main {
   left: 50%;
   transform: translate(-50%, -50%);
   display: flex;
+}
+
+.shared-styles-sections {
+  margin: 3rem 5rem;
+  color: var(--color-marine-blue);
 }
