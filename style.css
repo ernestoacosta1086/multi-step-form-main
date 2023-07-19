@@ -4,6 +4,7 @@
 /*Components imports*/
 @import './css/side-bar.css';
 @import './css/personal-information.css';
+@import './css/action-buttons.css';
 
 :root {
   --color-neutral-100: hsl(0, 0%, 100%);
@@ -62,6 +63,7 @@ body {
   -webkit-font-smoothing: antialiased;
   background-color: var(--color-neutral-xx-100);
   font-family: var(--font-family-base);
+  max-width: 100vh;
 }
 /*
   5. Improve media defaults
@@ -131,4 +133,10 @@ main {
 .shared-styles-sections {
   margin: 3rem 5rem;
   color: var(--color-marine-blue);
+}
+
+.section-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
