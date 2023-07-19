@@ -5,6 +5,7 @@
 @import './css/side-bar.css';
 @import './css/personal-information.css';
 @import './css/action-buttons.css';
+@import './css/plan-details.css';
 
 :root {
   --color-neutral-100: hsl(0, 0%, 100%);
@@ -135,8 +136,18 @@ main {
   color: var(--color-marine-blue);
 }
 
+.shared-styles-sections p {
+  color: var(--color-neutral-300);
+  font-size: var(--font-size-base);
+}
+
+.form-title p {
+  margin-top: 0.5rem;
+}
+
 .section-container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  width: 100%;
 }

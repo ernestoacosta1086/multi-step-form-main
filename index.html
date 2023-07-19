@@ -35,9 +35,12 @@
         </div>
       </div>
       <div class="section-container">
-        <section class="personal-information shared-styles-sections">
-          <h1>Personal info</h1>
-          <p>Please provide your name, email address, and phone number.</p>
+        <section
+          class="personal-information shared-styles-sections visually-hidden">
+          <div class="form-title">
+            <h1>Personal info</h1>
+            <p>Please provide your name, email address, and phone number.</p>
+          </div>
           <label for="name">Name</label
           ><input
             type="text"
@@ -57,14 +60,47 @@
             id="phone-number"
             placeholder="e.g. +1 234 567 890" />
         </section>
-        <section
-          class="plan-details shared-styles-sections visually-hidden"></section>
-        <section
-          class="add-ons shared-styles-sections visually-hidden"></section>
+        <section class="plan-details shared-styles-sections">
+          <div class="form-title">
+            <h1>Select your plan</h1>
+            <p>You have the option of monthly or yearly billing.</p>
+          </div>
+
+          <div class="plan-details__options plan-details__options--active">
+            <div class="plan-details__card plan-details__card--active">
+              <img src="./assets/images/icon-arcade.svg" alt="Arcade" /><span
+                >Arcade</span
+              >
+              <p>$9/mo</p>
+            </div>
+            <div class="plan-details__card">
+              <img
+                src="./assets/images/icon-advanced.svg"
+                alt="Advanced" /><span>Advanced</span>
+              <p>$12/mo</p>
+            </div>
+            <div class="plan-details__card">
+              <img src="./assets/images/icon-pro.svg" alt="Pro" /><span
+                >Pro</span
+              >
+              <p>$15/mo</p>
+            </div>
+          </div>
+          <div class="plan-details__frequency">
+            <span>Monthly</span
+            ><img
+              src="./assets/images/icon-check-y-m.svg"
+              alt="Frecuency" /><span>Yearly</span>
+          </div>
+        </section>
+        <section class="add-ons shared-styles-sections visually-hidden">
+          <div class="form-title"></div>
+        </section>
         <section
           class="finishing-up shared-styles-sections visually-hidden"></section>
-        <section
-          class="thank-you shared-styles-sections visually-hidden"></section>
+        <section class="thank-you shared-styles-sections visually-hidden">
+          <div class="form-title"></div>
+        </section>
 
         <div class="action-buttons">
           <button class="action-buttons__back">Go Back</button
