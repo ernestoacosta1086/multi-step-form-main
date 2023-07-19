@@ -1,0 +1,25 @@
+.action-buttons {
+  margin: 2rem 5rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.action-buttons__back {
+  color: var(--color-neutral-300);
+  background-color: transparent;
+  border: none;
+  font-weight: var(--font-weight-medium-500);
+}
+
+.action-buttons__next {
+  color: var(--color-neutral-100);
+  background-color: var(--color-marine-blue);
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.5rem;
+  border: none;
+}
+
+.action-buttons__back:hover,
+.action-buttons__next:hover {
+  cursor: pointer;
+}
