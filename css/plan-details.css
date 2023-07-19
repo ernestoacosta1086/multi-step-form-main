@@ -1,0 +1,62 @@
+.plan-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.plan-details__options {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.plan-details__card {
+  width: 31%;
+  border: 1px solid var(--color-neutral-200);
+  padding: 1rem;
+  border-radius: 0.4rem;
+}
+
+.plan-details__card span {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium-500);
+}
+
+.plan-details__card p {
+  font-size: var(--font-size-medium);
+}
+
+.plan-details__card img {
+  margin-bottom: 3rem;
+}
+
+.plan-details__card:hover {
+  cursor: pointer;
+  border: 1px solid var(--color-purplish-blue);
+}
+
+.plan-details__card--active {
+  border: 1px solid var(--color-purplish-blue);
+  background-color: var(--color-neutral-xx-100);
+}
+
+.plan-details__frequency {
+  background-color: var(--color-neutral-xx-100);
+  padding: 0.8rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1.3rem;
+  border-radius: 0.5rem;
+  font-size: var(--font-size-medium);
+  font-weight: var(--font-weight-medium-500);
+}
+
+.plan-details__frequency :last-child {
+  color: var(--color-neutral-300);
+}
+
+.plan-details__frequency img:hover {
+  cursor: pointer;
+}

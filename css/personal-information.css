@@ -3,11 +3,7 @@
   flex-direction: column;
   gap: 2rem;
 }
-.personal-information p {
-  color: var(--color-neutral-300);
-  margin-top: -1.5rem;
-  font-size: var(--font-size-base);
-}
+
 .personal-information input {
   width: 100%;
   padding: 0.5rem 1rem;
