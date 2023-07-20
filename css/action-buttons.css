@@ -23,3 +23,8 @@
 .action-buttons__next:hover {
   cursor: pointer;
 }
+
+.action-buttons__next--confirm {
+  cursor: pointer;
+  background-color: var(--color-purplish-blue);
+}
