@@ -1,0 +1,47 @@
+.add-ons {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.add-ons__cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.add-ons__card {
+  display: flex;
+  gap: 2rem;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid var(--color-neutral-200);
+  padding: 1rem 1.5rem;
+  border-radius: 0.4rem;
+}
+
+.add-ons__card div {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.add-ons__card div span {
+  font-weight: var(--font-weight-medium-500);
+}
+
+.add-ons__card div p {
+  font-size: var(--font-size-medium);
+}
+
+.add-ons__card:hover {
+  cursor: pointer;
+}
+
+.add-ons__card--active {
+  cursor: pointer;
+  border: 1px solid var(--color-purplish-blue);
+  background-color: var(--color-neutral-xx-100);
+}
+
+.add-ons__card > span {
+  color: var(--color-purplish-blue);
+}
