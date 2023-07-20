@@ -6,6 +6,7 @@
 @import './css/personal-information.css';
 @import './css/action-buttons.css';
 @import './css/plan-details.css';
+@import './css/add-ons.css';
 
 :root {
   --color-neutral-100: hsl(0, 0%, 100%);

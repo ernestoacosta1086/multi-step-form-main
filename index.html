@@ -60,7 +60,7 @@
             id="phone-number"
             placeholder="e.g. +1 234 567 890" />
         </section>
-        <section class="plan-details shared-styles-sections">
+        <section class="plan-details shared-styles-sections visually-hidden">
           <div class="form-title">
             <h1>Select your plan</h1>
             <p>You have the option of monthly or yearly billing.</p>
@@ -93,8 +93,43 @@
               alt="Frecuency" /><span>Yearly</span>
           </div>
         </section>
-        <section class="add-ons shared-styles-sections visually-hidden">
-          <div class="form-title"></div>
+        <section class="add-ons shared-styles-sections">
+          <div class="form-title">
+            <h1>Pick add-ons</h1>
+            <p>Add-ons help enhance your gaming experience.</p>
+          </div>
+          <div class="add-ons__cards">
+            <div class="add-ons__card add-ons__card--active">
+              <div>
+                <input type="checkbox" id="online-service" />
+                <label for="online-service">
+                  <span>Online service</span>
+                  <p>Access to multiplayer games</p>
+                </label>
+              </div>
+              <span>+$1/mo</span>
+            </div>
+            <div class="add-ons__card add-ons__card--active">
+              <div>
+                <input type="checkbox" id="online-service" />
+                <label for="online-service">
+                  <span>Larger storage</span>
+                  <p>Extra 1TB of cloud save</p>
+                </label>
+              </div>
+              <span>+$2/mo</span>
+            </div>
+            <div class="add-ons__card">
+              <div>
+                <input type="checkbox" id="online-service" />
+                <label for="online-service">
+                  <span>Customizable profile</span>
+                  <p>Custom theme on your profile</p>
+                </label>
+              </div>
+              <span>+$2/mo</span>
+            </div>
+          </div>
         </section>
         <section
           class="finishing-up shared-styles-sections visually-hidden"></section>
