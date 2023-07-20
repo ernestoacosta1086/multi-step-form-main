@@ -1,0 +1,13 @@
+.thank-you {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  height: 100%;
+}
+
+.thank-you p {
+  margin-top: -1.5rem;
+  text-align: center;
+}

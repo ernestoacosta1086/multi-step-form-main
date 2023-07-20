@@ -8,6 +8,7 @@
 @import './css/plan-details.css';
 @import './css/add-ons.css';
 @import './css/finishing-up.css';
+@import './css/thank-you.css';
 
 :root {
   --color-neutral-100: hsl(0, 0%, 100%);

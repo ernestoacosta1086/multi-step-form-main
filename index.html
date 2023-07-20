@@ -60,6 +60,7 @@
             id="phone-number"
             placeholder="e.g. +1 234 567 890" />
         </section>
+
         <section class="plan-details shared-styles-sections visually-hidden">
           <div class="form-title">
             <h1>Select your plan</h1>
@@ -93,12 +94,13 @@
               alt="Frecuency" /><span>Yearly</span>
           </div>
         </section>
+
         <section class="add-ons shared-styles-sections visually-hidden">
           <div class="form-title">
             <h1>Pick add-ons</h1>
             <p>Add-ons help enhance your gaming experience.</p>
           </div>
-          <div class="add-ons__cards">
+          <div class="add-ons__cards visually-hidden">
             <div class="add-ons__card add-ons__card--active">
               <div>
                 <input type="checkbox" id="online-service" />
@@ -131,7 +133,8 @@
             </div>
           </div>
         </section>
-        <section class="finishing-up shared-styles-sections">
+
+        <section class="finishing-up shared-styles-sections visually-hidden">
           <div class="form-title">
             <h1>Finishing up</h1>
             <p>Double-check everything looks OK before confirming.</p>
@@ -160,11 +163,18 @@
             <span>+$12/mo</span>
           </div>
         </section>
-        <section class="thank-you shared-styles-sections visually-hidden">
-          <div class="form-title"></div>
+
+        <section class="thank-you shared-styles-sections">
+          <img src="./assets/images/icon-thank-you.svg" alt="Thank you!" />
+          <h1>Thank you!</h1>
+          <p>
+            Thanks for confirming your subscription! We hope you have fun using
+            our platform. If you ever need support, please feel free to email us
+            at support@loremgaming.com.
+          </p>
         </section>
 
-        <div class="action-buttons">
+        <div class="action-buttons visually-hidden">
           <button class="action-buttons__back">Go Back</button
           ><button class="action-buttons__next">Next step</button>
         </div>
