@@ -1,8 +1,18 @@
+//Imports
+import { emptyValidation } from './validations.js'
+
+//Elements variables
 let sections = document.getElementsByTagName('section')
 let actionButtonNext = document.querySelector('.action-buttons__next')
 let actionButtonBack = document.querySelector('.action-buttons__back')
 let actionButtonsDiv = document.querySelector('.action-buttons')
 let stepsItems = document.querySelectorAll('.side-bar__number')
+let nameInput = document.querySelector('#name')
+let emailInput = document.querySelector('#email-address')
+let phoneInput = document.querySelector('#phone-number')
+let emptyErrorName = document.querySelector('#error-empty-name')
+let emptyErrorEmail = document.querySelector('#error-empty-email')
+let emptyErrorPhone = document.querySelector('#error-empty-phone')
 
 //Hide all sections except first one
 for (let i = 1; i < sections.length; i++) {
@@ -67,5 +77,35 @@ function updateStepsStatus() {
     stepsItems[globalSectionIndex - 1].classList.add('side-bar__number--active')
   } else {
     stepsItems[globalSectionIndex].classList.toggle('side-bar__number--active')
+  }
+}
+
+//Personal info validation
+nameInput.addEventListener('blur', () => {
+  validateField(nameInput, emptyErrorName)
+})
+nameInput.addEventListener('input', () => {
+  validateField(nameInput, emptyErrorName)
+})
+emailInput.addEventListener('blur', () => {
+  validateField(emailInput, emptyErrorEmail)
+})
+emailInput.addEventListener('input', () => {
+  validateField(emailInput, emptyErrorEmail)
+})
+phoneInput.addEventListener('blur', () => {
+  validateField(phoneInput, emptyErrorPhone)
+})
+phoneInput.addEventListener('input', () => {
+  validateField(phoneInput, emptyErrorPhone)
+})
+
+function validateField(field, errorMessage) {
+  if (emptyValidation(field)) {
+    field.style.outlineColor = 'red'
+    errorMessage.removeAttribute('hidden')
+  } else {
+    errorMessage.setAttribute('hidden', '')
+    field.style.outlineColor = 'hsl(229, 24%, 87%)'
   }
 }
