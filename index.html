@@ -40,20 +40,36 @@
             <h1>Personal info</h1>
             <p>Please provide your name, email address, and phone number.</p>
           </div>
-          <label for="name">Name</label
-          ><input
+          <div class="personal-information__item">
+            <label for="name">Name</label
+            ><span class="error-empty-field" id="error-empty-name" hidden
+              >This field is required!</span
+            >
+          </div>
+          <input
             type="text"
             name=""
             id="name"
-            placeholder="e.g. Stephen King" /><label for="email-address"
-            >Email Address</label
-          ><input
+            placeholder="e.g. Stephen King" />
+
+          <div class="personal-information__item">
+            <label for="email-address">Email Address</label
+            ><span class="error-empty-field" id="error-empty-email" hidden
+              >This field is required!</span
+            >
+          </div>
+          <input
             type="text"
             name=""
             id="email-address"
-            placeholder="e.g. stephenking@lorem.com" /><label for="phone-number"
-            >Phone Number</label
-          ><input
+            placeholder="e.g. stephenking@lorem.com" />
+          <div class="personal-information__item">
+            <label for="phone-number">Phone Number</label
+            ><span class="error-empty-field" id="error-empty-phone" hidden
+              >This field is required!</span
+            >
+          </div>
+          <input
             type="text"
             name=""
             id="phone-number"
@@ -179,6 +195,7 @@
         </div>
       </div>
     </main>
-    <script src="script.js"></script>
+    <!-- script.js -->
+    <script type="module" src="script.js"></script>
   </body>
 </html>
