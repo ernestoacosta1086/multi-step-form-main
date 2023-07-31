@@ -24,6 +24,12 @@
   cursor: pointer;
 }
 
+.action-buttons__next:disabled {
+  background-color: gray;
+  color: white;
+  cursor: not-allowed;
+}
+
 .action-buttons__next--confirm {
   cursor: pointer;
   background-color: var(--color-purplish-blue);

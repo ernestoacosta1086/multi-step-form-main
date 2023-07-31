@@ -23,6 +23,8 @@ for (let i = 1; i < sections.length; i++) {
 let globalSectionIndex = 0
 updateStepsStatus()
 updateButtonStatus()
+actionButtonNext.disabled = true
+
 actionButtonNext.addEventListener('click', () => {
   globalSectionIndex++
   changeSection(true)
@@ -62,7 +64,7 @@ function updateButtonStatus() {
     actionButtonNext.classList.add('action-buttons__next--confirm')
     actionButtonNext.textContent = 'Confirm'
   } else if (globalSectionIndex === 4) {
-    // hide all buttons componet
+    // hide all buttons component
     actionButtonsDiv.classList.add('visually-hidden')
   }
 }
@@ -83,22 +85,41 @@ function updateStepsStatus() {
 //Personal info validation
 nameInput.addEventListener('blur', () => {
   validateField(nameInput, emptyErrorName)
+  checkAllValidationToEnableButton()
 })
 nameInput.addEventListener('input', () => {
   validateField(nameInput, emptyErrorName)
+  checkAllValidationToEnableButton()
 })
 emailInput.addEventListener('blur', () => {
   validateField(emailInput, emptyErrorEmail)
+  checkAllValidationToEnableButton()
 })
 emailInput.addEventListener('input', () => {
   validateField(emailInput, emptyErrorEmail)
+  checkAllValidationToEnableButton()
 })
 phoneInput.addEventListener('blur', () => {
   validateField(phoneInput, emptyErrorPhone)
+  checkAllValidationToEnableButton()
 })
 phoneInput.addEventListener('input', () => {
   validateField(phoneInput, emptyErrorPhone)
+  checkAllValidationToEnableButton()
 })
+
+//Check each input to enable the button
+function checkAllValidationToEnableButton() {
+  if (
+    emptyValidation(nameInput) ||
+    emptyValidation(emailInput) ||
+    emptyValidation(phoneInput)
+  ) {
+    actionButtonNext.disabled = true
+  } else {
+    actionButtonNext.disabled = false
+  }
+}
 
 function validateField(field, errorMessage) {
   if (emptyValidation(field)) {
