@@ -13,6 +13,10 @@ let phoneInput = document.querySelector('#phone-number')
 let emptyErrorName = document.querySelector('#error-empty-name')
 let emptyErrorEmail = document.querySelector('#error-empty-email')
 let emptyErrorPhone = document.querySelector('#error-empty-phone')
+let cardsDetails = document.querySelectorAll('.plan-details__card')
+let frequencyMonthly = document.querySelector('#monthly')
+let frequencyYearly = document.querySelector('#yearly')
+let switchFrequency = document.querySelector('.plan_details__switch')
 
 //Hide all sections except first one
 for (let i = 1; i < sections.length; i++) {
@@ -110,11 +114,7 @@ phoneInput.addEventListener('input', () => {
 
 //Check each input to enable the button
 function checkAllValidationToEnableButton() {
-  if (
-    emptyValidation(nameInput) ||
-    emptyValidation(emailInput) ||
-    emptyValidation(phoneInput)
-  ) {
+  if (emptyValidation(nameInput) || emptyValidation(emailInput) || emptyValidation(phoneInput)) {
     actionButtonNext.disabled = true
   } else {
     actionButtonNext.disabled = false
@@ -130,3 +130,23 @@ function validateField(field, errorMessage) {
     field.style.outlineColor = 'hsl(229, 24%, 87%)'
   }
 }
+
+//Enable functionality to second form Cards
+cardsDetails.forEach((card) => {
+  card.addEventListener('click', () => {
+    UpdateCardStatus()
+    card.classList.toggle('plan-details__card--active')
+  })
+})
+
+function UpdateCardStatus() {
+  cardsDetails.forEach((card) => {
+    card.classList.remove('plan-details__card--active')
+  })
+}
+
+switchFrequency.addEventListener('click', () => {
+  frequencyMonthly.classList.toggle('plan-details__frequency--inactive')
+  frequencyYearly.classList.toggle('plan-details__frequency--inactive')
+  switchFrequency.classList.toggle('flipped')
+})

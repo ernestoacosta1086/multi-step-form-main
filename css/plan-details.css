@@ -53,10 +53,14 @@
   font-weight: var(--font-weight-medium-500);
 }
 
-.plan-details__frequency :last-child {
+.plan-details__frequency--inactive {
   color: var(--color-neutral-300);
 }
 
 .plan-details__frequency img:hover {
   cursor: pointer;
+}
+
+.flipped {
+  transform: scaleX(-1);
 }
