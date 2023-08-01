@@ -4,16 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="./assets/images/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png" />
 
     <link rel="stylesheet" type="text/css" href="style.css" />
 
     <title>Multi-step form</title>
   </head>
+
   <body>
     <main>
       <div class="side-bar">
@@ -46,11 +43,7 @@
               >This field is required!</span
             >
           </div>
-          <input
-            type="text"
-            name=""
-            id="name"
-            placeholder="e.g. Stephen King" />
+          <input type="text" name="" id="name" placeholder="e.g. Stephen King" />
 
           <div class="personal-information__item">
             <label for="email-address">Email Address</label
@@ -58,22 +51,14 @@
               >This field is required!</span
             >
           </div>
-          <input
-            type="text"
-            name=""
-            id="email-address"
-            placeholder="e.g. stephenking@lorem.com" />
+          <input type="text" name="" id="email-address" placeholder="e.g. stephenking@lorem.com" />
           <div class="personal-information__item">
             <label for="phone-number">Phone Number</label
             ><span class="error-empty-field" id="error-empty-phone" hidden
               >This field is required!</span
             >
           </div>
-          <input
-            type="text"
-            name=""
-            id="phone-number"
-            placeholder="e.g. +1 234 567 890" />
+          <input type="text" name="" id="phone-number" placeholder="e.g. +1 234 567 890" />
         </section>
 
         <section class="plan-details shared-styles-sections">
@@ -84,29 +69,30 @@
 
           <div class="plan-details__options plan-details__options--active">
             <div class="plan-details__card plan-details__card--active">
-              <img src="./assets/images/icon-arcade.svg" alt="Arcade" /><span
-                >Arcade</span
-              >
+              <img src="./assets/images/icon-arcade.svg" alt="Arcade" /><span>Arcade</span>
               <p>$9/mo</p>
             </div>
             <div class="plan-details__card">
-              <img
-                src="./assets/images/icon-advanced.svg"
-                alt="Advanced" /><span>Advanced</span>
+              <img src="./assets/images/icon-advanced.svg" alt="Advanced" /><span>Advanced</span>
               <p>$12/mo</p>
             </div>
             <div class="plan-details__card">
-              <img src="./assets/images/icon-pro.svg" alt="Pro" /><span
-                >Pro</span
-              >
+              <img src="./assets/images/icon-pro.svg" alt="Pro" /><span>Pro</span>
               <p>$15/mo</p>
             </div>
           </div>
           <div class="plan-details__frequency">
-            <span>Monthly</span
-            ><img
-              src="./assets/images/icon-check-y-m.svg"
-              alt="Frecuency" /><span>Yearly</span>
+            <span id="monthly">Monthly</span
+            ><svg
+              class="plan_details__switch"
+              xmlns="http://www.w3.org/2000/svg"
+              width="38"
+              height="20"
+              viewBox="0 0 38 20"
+              fill="none">
+              <rect width="38" height="20" rx="10" fill="#022959" />
+              <circle cx="10" cy="10" r="6" fill="white" /></svg
+            ><span id="yearly" class="plan-details__frequency--inactive">Yearly</span>
           </div>
         </section>
 
@@ -183,9 +169,8 @@
           <img src="./assets/images/icon-thank-you.svg" alt="Thank you!" />
           <h1>Thank you!</h1>
           <p>
-            Thanks for confirming your subscription! We hope you have fun using
-            our platform. If you ever need support, please feel free to email us
-            at support@loremgaming.com.
+            Thanks for confirming your subscription! We hope you have fun using our platform. If you
+            ever need support, please feel free to email us at support@loremgaming.com.
           </p>
         </section>
 
