@@ -64,3 +64,11 @@
 .flipped {
   transform: scaleX(-1);
 }
+
+.plan-details__trial {
+  font-size: var(--font-size-small) !important;
+  font-weight: var(--font-weight-regular-400);
+  display: none;
+  font-style: normal;
+  line-height: var(--line-height-small);
+}

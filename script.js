@@ -17,6 +17,8 @@ let cardsDetails = document.querySelectorAll('.plan-details__card')
 let frequencyMonthly = document.querySelector('#monthly')
 let frequencyYearly = document.querySelector('#yearly')
 let switchFrequency = document.querySelector('.plan_details__switch')
+let listOfPrices = document.querySelectorAll('#price')
+let trials = document.querySelectorAll('.plan-details__trial')
 
 //Hide all sections except first one
 for (let i = 1; i < sections.length; i++) {
@@ -145,8 +147,47 @@ function UpdateCardStatus() {
   })
 }
 
+let frequency = false
 switchFrequency.addEventListener('click', () => {
   frequencyMonthly.classList.toggle('plan-details__frequency--inactive')
   frequencyYearly.classList.toggle('plan-details__frequency--inactive')
   switchFrequency.classList.toggle('flipped')
+  updateCardsData(frequency)
+  frequency = !frequency
 })
+
+function updateCardsData(switchFrequency) {
+  const plans = [
+    {
+      name: 'Arcade',
+      priceMonthly: '$9/mo',
+      priceYearly: '$90/yr',
+    },
+    {
+      name: 'Advance',
+      priceMonthly: '$12/mo',
+      priceYearly: '$120/yr',
+    },
+    {
+      name: 'Pro',
+      priceMonthly: '$15/mo',
+      priceYearly: '$150/yr',
+    },
+  ]
+
+  if (switchFrequency) {
+    listOfPrices.forEach((price, pos) => {
+      price.textContent = plans[pos].priceMonthly
+      trials.forEach((trial) => {
+        trial.style.display = 'none'
+      })
+    })
+  } else {
+    listOfPrices.forEach((price, pos) => {
+      price.textContent = plans[pos].priceYearly
+      trials.forEach((trial) => {
+        trial.style.display = 'block'
+      })
+    })
+  }
+}
