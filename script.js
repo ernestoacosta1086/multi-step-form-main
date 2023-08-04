@@ -1,5 +1,6 @@
 //Imports
 import { emptyValidation } from './validations.js'
+import Info from './models/Info.js'
 
 //Elements variables
 let sections = document.getElementsByTagName('section')
@@ -19,6 +20,9 @@ let frequencyYearly = document.querySelector('#yearly')
 let switchFrequency = document.querySelector('.plan_details__switch')
 let listOfPrices = document.querySelectorAll('#price')
 let trials = document.querySelectorAll('.plan-details__trial')
+let addOnCards = document.querySelectorAll('.add-ons__card')
+let checkAddOns = document.querySelectorAll('.add-on')
+let addOnPrices = document.querySelectorAll('.add-ons__price')
 
 //Hide all sections except first one
 for (let i = 1; i < sections.length; i++) {
@@ -153,6 +157,7 @@ switchFrequency.addEventListener('click', () => {
   frequencyYearly.classList.toggle('plan-details__frequency--inactive')
   switchFrequency.classList.toggle('flipped')
   updateCardsData(frequency)
+  updateAddOnsData(frequency)
   frequency = !frequency
 })
 
@@ -191,3 +196,39 @@ function updateCardsData(switchFrequency) {
     })
   }
 }
+
+function updateAddOnsData(switchFrequency) {
+  const addOns = [
+    {
+      name: 'Online service',
+      priceMonthly: '$1/mo',
+      priceYearly: '$10/yr',
+    },
+    {
+      name: 'Larger Storage',
+      priceMonthly: '$2/mo',
+      priceYearly: '$20/yr',
+    },
+    {
+      name: 'Customizable profile',
+      priceMonthly: '$2/mo',
+      priceYearly: '$20/yr',
+    },
+  ]
+  if (switchFrequency) {
+    addOnPrices.forEach((price, pos) => {
+      price.textContent = addOns[pos].priceMonthly
+    })
+  } else {
+    addOnPrices.forEach((price, pos) => {
+      price.textContent = addOns[pos].priceYearly
+    })
+  }
+}
+
+//Add-on cards
+checkAddOns.forEach((addOn, pos) => {
+  addOn.addEventListener('click', () => {
+    addOnCards[pos].classList.toggle('add-ons__card--active')
+  })
+})
