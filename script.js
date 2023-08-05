@@ -31,11 +31,13 @@ for (let i = 1; i < sections.length; i++) {
 
 //Set the event to the Next Button to change between sections
 let globalSectionIndex = 0
+let data = new Info()
 updateStepsStatus()
 updateButtonStatus()
 actionButtonNext.disabled = true
 
 actionButtonNext.addEventListener('click', () => {
+  retrieveData()
   globalSectionIndex++
   changeSection(true)
   updateButtonStatus()
@@ -44,6 +46,7 @@ actionButtonNext.addEventListener('click', () => {
 
 //Set the event to the Previous Button to change between sections
 actionButtonBack.addEventListener('click', () => {
+  retrieveData()
   globalSectionIndex--
   changeSection(false)
   updateButtonStatus()
@@ -232,3 +235,13 @@ checkAddOns.forEach((addOn, pos) => {
     addOnCards[pos].classList.toggle('add-ons__card--active')
   })
 })
+
+//Retrieve data
+function retrieveData() {
+  if (globalSectionIndex === 0) {
+    data.name = nameInput.value
+    data.email = emailInput.value
+    data.phone = phoneInput.value
+    console.log(data)
+  }
+}
