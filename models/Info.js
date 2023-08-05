@@ -3,9 +3,11 @@ class Info {
     this.name = ''
     this.email = ''
     this.phone = ''
-    this.selectedPlan = ['Arcade', 'Advance', 'Pro']
-    this.frequency = ['Monthly', 'Yearly']
-    this.addOns = ['Online service', 'Larger storage', 'Customizable profile']
+    this.selectedPlan = ''
+    this.frequency = ''
+    this.priceMonthly = 0
+    this.priceYearly = 0
+    this.addOns = ['']
   }
 
   // Methods to update data for each section of the form
@@ -25,6 +27,14 @@ class Info {
     this.selectedPlan = plan
   }
 
+  updatePriceMonthly(priceMonthly) {
+    this.priceMonthly = priceMonthly
+  }
+
+  updatePriceYearly(PriceYearly) {
+    this.PriceYearly = PriceYearly
+  }
+
   // Method to add or remove add-ons
   addAddOn(addOn) {
     if (!this.addOns.includes(addOn)) {
@@ -36,17 +46,6 @@ class Info {
     const index = this.addOns.indexOf(addOn)
     if (index !== -1) {
       this.addOns.splice(index, 1)
-    }
-  }
-
-  // Method to get the complete form data
-  getCompleteFormData() {
-    return {
-      name: this.name,
-      email: this.email,
-      phone: this.phone,
-      selectedPlan: this.selectedPlan,
-      addOns: this.addOns,
     }
   }
 }
