@@ -184,7 +184,7 @@ cardsDetails.forEach((card, pos) => {
     UpdateCardStatus()
     card.classList.toggle('plan-details__card--active')
     data.selectedPlan = plans[pos].name
-    console.log(data)
+    updatePrice(frequency)
   })
 })
 
@@ -194,7 +194,7 @@ function UpdateCardStatus() {
   })
 }
 
-let frequency = false
+let frequency = true
 switchFrequency.addEventListener('click', () => {
   frequencyMonthly.classList.toggle('plan-details__frequency--inactive')
   frequencyYearly.classList.toggle('plan-details__frequency--inactive')
@@ -202,6 +202,7 @@ switchFrequency.addEventListener('click', () => {
   updateCardsData(frequency)
   updateAddOnsData(frequency)
   frequency = !frequency
+  updatePrice(frequency)
 })
 
 function updateCardsData(switchFrequency) {
@@ -251,4 +252,13 @@ function retrieveData() {
   console.log(data)
 }
 
-addOnCards
+function updatePrice(frequency) {
+  if (frequency) {
+    data.priceMonthly = plans.find((plan) => plan.name === data.selectedPlan).priceMonthly
+    data.priceYearly = 'N/A'
+  } else {
+    data.priceYearly = plans.find((plan) => plan.name === data.selectedPlan).priceYearly
+    data.priceMonthly = 'N/A'
+  }
+  console.log(data)
+}

@@ -4,7 +4,6 @@ class Info {
     this.email = ''
     this.phone = ''
     this.selectedPlan = ''
-    this.frequency = ''
     this.priceMonthly = 0
     this.priceYearly = 0
     this.addOns = ['']
