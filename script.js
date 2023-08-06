@@ -24,6 +24,42 @@ let addOnCards = document.querySelectorAll('.add-ons__card')
 let checkAddOns = document.querySelectorAll('.add-on')
 let addOnPrices = document.querySelectorAll('.add-ons__price')
 
+const plans = [
+  {
+    name: 'Arcade',
+    priceMonthly: '$9/mo',
+    priceYearly: '$90/yr',
+  },
+  {
+    name: 'Advance',
+    priceMonthly: '$12/mo',
+    priceYearly: '$120/yr',
+  },
+  {
+    name: 'Pro',
+    priceMonthly: '$15/mo',
+    priceYearly: '$150/yr',
+  },
+]
+
+const addOns = [
+  {
+    name: 'Online service',
+    priceMonthly: '$1/mo',
+    priceYearly: '$10/yr',
+  },
+  {
+    name: 'Larger Storage',
+    priceMonthly: '$2/mo',
+    priceYearly: '$20/yr',
+  },
+  {
+    name: 'Customizable profile',
+    priceMonthly: '$2/mo',
+    priceYearly: '$20/yr',
+  },
+]
+
 //Hide all sections except first one
 for (let i = 1; i < sections.length; i++) {
   sections[i].classList.add('visually-hidden')
@@ -35,6 +71,8 @@ let data = new Info()
 updateStepsStatus()
 updateButtonStatus()
 actionButtonNext.disabled = true
+//Add initial plan selected
+data.selectedPlan = plans[0].name
 
 actionButtonNext.addEventListener('click', () => {
   retrieveData()
@@ -141,10 +179,12 @@ function validateField(field, errorMessage) {
 }
 
 //Enable functionality to second form Cards
-cardsDetails.forEach((card) => {
+cardsDetails.forEach((card, pos) => {
   card.addEventListener('click', () => {
     UpdateCardStatus()
     card.classList.toggle('plan-details__card--active')
+    data.selectedPlan = plans[pos].name
+    console.log(data)
   })
 })
 
@@ -165,24 +205,6 @@ switchFrequency.addEventListener('click', () => {
 })
 
 function updateCardsData(switchFrequency) {
-  const plans = [
-    {
-      name: 'Arcade',
-      priceMonthly: '$9/mo',
-      priceYearly: '$90/yr',
-    },
-    {
-      name: 'Advance',
-      priceMonthly: '$12/mo',
-      priceYearly: '$120/yr',
-    },
-    {
-      name: 'Pro',
-      priceMonthly: '$15/mo',
-      priceYearly: '$150/yr',
-    },
-  ]
-
   if (switchFrequency) {
     listOfPrices.forEach((price, pos) => {
       price.textContent = plans[pos].priceMonthly
@@ -201,23 +223,6 @@ function updateCardsData(switchFrequency) {
 }
 
 function updateAddOnsData(switchFrequency) {
-  const addOns = [
-    {
-      name: 'Online service',
-      priceMonthly: '$1/mo',
-      priceYearly: '$10/yr',
-    },
-    {
-      name: 'Larger Storage',
-      priceMonthly: '$2/mo',
-      priceYearly: '$20/yr',
-    },
-    {
-      name: 'Customizable profile',
-      priceMonthly: '$2/mo',
-      priceYearly: '$20/yr',
-    },
-  ]
   if (switchFrequency) {
     addOnPrices.forEach((price, pos) => {
       price.textContent = addOns[pos].priceMonthly
@@ -242,6 +247,8 @@ function retrieveData() {
     data.name = nameInput.value
     data.email = emailInput.value
     data.phone = phoneInput.value
-    console.log(data)
   }
+  console.log(data)
 }
+
+addOnCards
