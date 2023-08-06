@@ -71,8 +71,9 @@ let data = new Info()
 updateStepsStatus()
 updateButtonStatus()
 actionButtonNext.disabled = true
-//Add initial plan selected
+//Add default plan selected and price
 data.selectedPlan = plans[0].name
+data.priceMonthly = plans.find((plan) => plan.name === data.selectedPlan).priceMonthly
 
 actionButtonNext.addEventListener('click', () => {
   retrieveData()
@@ -199,9 +200,10 @@ switchFrequency.addEventListener('click', () => {
   frequencyMonthly.classList.toggle('plan-details__frequency--inactive')
   frequencyYearly.classList.toggle('plan-details__frequency--inactive')
   switchFrequency.classList.toggle('flipped')
+  frequency = !frequency
   updateCardsData(frequency)
   updateAddOnsData(frequency)
-  frequency = !frequency
+
   updatePrice(frequency)
 })
 
@@ -239,6 +241,8 @@ function updateAddOnsData(switchFrequency) {
 checkAddOns.forEach((addOn, pos) => {
   addOn.addEventListener('click', () => {
     addOnCards[pos].classList.toggle('add-ons__card--active')
+    if (addOn.checked) data.addOns[pos] = addOns[pos]
+    else data.addOns[pos] = ''
   })
 })
 
@@ -261,4 +265,11 @@ function updatePrice(frequency) {
     data.priceMonthly = 'N/A'
   }
   console.log(data)
+}
+
+//Calculate total
+function calculateTotal(frequency) {
+  let total = 0
+  if (frequency) {
+  }
 }
