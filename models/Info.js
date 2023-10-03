@@ -30,8 +30,8 @@ class Info {
     this.priceMonthly = priceMonthly
   }
 
-  updatePriceYearly(PriceYearly) {
-    this.PriceYearly = PriceYearly
+  updatePriceYearly(priceYearly) {
+    this.priceYearly = priceYearly
   }
 
   // Method to add or remove add-ons

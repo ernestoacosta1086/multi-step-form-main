@@ -23,22 +23,29 @@ let trials = document.querySelectorAll('.plan-details__trial')
 let addOnCards = document.querySelectorAll('.add-ons__card')
 let checkAddOns = document.querySelectorAll('.add-on')
 let addOnPrices = document.querySelectorAll('.add-ons__price')
+let totalValue = document.getElementById('total')
 
 const plans = [
   {
     name: 'Arcade',
     priceMonthly: '$9/mo',
     priceYearly: '$90/yr',
+    monthlyPrice: 9,
+    yearlyPrice: 90,
   },
   {
     name: 'Advance',
     priceMonthly: '$12/mo',
     priceYearly: '$120/yr',
+    monthlyPrice: 12,
+    yearlyPrice: 120,
   },
   {
     name: 'Pro',
     priceMonthly: '$15/mo',
     priceYearly: '$150/yr',
+    monthlyPrice: 15,
+    yearlyPrice: 150,
   },
 ]
 
@@ -47,16 +54,22 @@ const addOns = [
     name: 'Online service',
     priceMonthly: '$1/mo',
     priceYearly: '$10/yr',
+    monthlyPrice: 1,
+    yearlyPrice: 10,
   },
   {
     name: 'Larger Storage',
     priceMonthly: '$2/mo',
     priceYearly: '$20/yr',
+    monthlyPrice: 2,
+    yearlyPrice: 20,
   },
   {
     name: 'Customizable profile',
     priceMonthly: '$2/mo',
     priceYearly: '$20/yr',
+    monthlyPrice: 2,
+    yearlyPrice: 20,
   },
 ]
 
@@ -111,8 +124,10 @@ function updateButtonStatus() {
   if (globalSectionIndex === 0) {
     actionButtonBack.style.visibility = 'hidden'
     actionButtonNext.classList.remove('action-buttons__next--confirm')
+  } else if (globalSectionIndex === 2) {
   } else if (globalSectionIndex === 3) {
     // change color and text
+    calculateTotal(frequency)
     actionButtonNext.classList.add('action-buttons__next--confirm')
     actionButtonNext.textContent = 'Confirm'
   } else if (globalSectionIndex === 4) {
@@ -179,7 +194,7 @@ function validateField(field, errorMessage) {
   }
 }
 
-//Enable functionality to second form Cards
+//Enable functionality to second plan form Cards
 cardsDetails.forEach((card, pos) => {
   card.addEventListener('click', () => {
     UpdateCardStatus()
@@ -253,23 +268,37 @@ function retrieveData() {
     data.email = emailInput.value
     data.phone = phoneInput.value
   }
-  console.log(data)
 }
 
 function updatePrice(frequency) {
   if (frequency) {
-    data.priceMonthly = plans.find((plan) => plan.name === data.selectedPlan).priceMonthly
-    data.priceYearly = 'N/A'
+    data.priceMonthly = plans.find((plan) => plan.name === data.selectedPlan).monthlyPrice
   } else {
-    data.priceYearly = plans.find((plan) => plan.name === data.selectedPlan).priceYearly
-    data.priceMonthly = 'N/A'
+    data.priceYearly = plans.find((plan) => plan.name === data.selectedPlan).yearlyPrice
   }
-  console.log(data)
 }
 
 //Calculate total
 function calculateTotal(frequency) {
   let total = 0
   if (frequency) {
+    total = data.priceMonthly
+    console.log('Before addons ' + total)
+    for (let i = 0; i < data.addOns.length; i++) {
+      if (data.addOns[i] !== '') {
+        total += data.addOns[i].monthlyPrice
+      }
+    }
+  } else {
+    total = data.priceYearly
+    for (let i = 0; i < data.addOns.length; i++) {
+      if (data.addOns[i] !== '') {
+        total += data.addOns[i].yearlyPrice
+      }
+    }
   }
+  totalValue.textContent = total
+  console.log('Total ' + total)
+  console.log(data)
+  console.log('Price ' + parseInt(data.addOns[0].monthlyPrice))
 }
