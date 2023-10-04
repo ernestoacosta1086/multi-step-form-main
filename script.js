@@ -30,6 +30,7 @@ let addOnsNameTotal = document.querySelectorAll('.add-on-name')
 let addOnsPriceTotal = document.querySelectorAll('.add-on-price')
 let addOnsContainer = document.querySelectorAll('.add-on-container')
 let totalLabel = document.querySelector('.finishing-up__total-p')
+let changePlan = document.querySelector('#change')
 
 const plans = [
   {
@@ -92,7 +93,7 @@ updateButtonStatus()
 actionButtonNext.disabled = true
 //Add default plan selected and price
 data.selectedPlan = plans[0].name
-data.priceMonthly = plans.find((plan) => plan.name === data.selectedPlan).priceMonthly
+data.priceMonthly = plans.find((plan) => plan.name === data.selectedPlan).monthlyPrice
 
 actionButtonNext.addEventListener('click', () => {
   retrieveData()
@@ -217,6 +218,7 @@ function UpdateCardStatus() {
 }
 
 let frequency = true
+
 switchFrequency.addEventListener('click', () => {
   frequencyMonthly.classList.toggle('plan-details__frequency--inactive')
   frequencyYearly.classList.toggle('plan-details__frequency--inactive')
@@ -321,3 +323,14 @@ function calculateTotal(frequency) {
     totalValue.textContent = '$' + total + '/yr'
   }
 }
+
+//Change option move to the first step
+changePlan.addEventListener('click', () => {
+  for (let i = 0; i < 3; i++) {
+    retrieveData()
+    globalSectionIndex--
+    changeSection(false)
+    updateButtonStatus()
+    updateStepsStatus()
+  }
+})
