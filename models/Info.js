@@ -10,17 +10,6 @@ class Info {
   }
 
   // Methods to update data for each section of the form
-  updateName(name) {
-    this.name = name
-  }
-
-  updateEmail(email) {
-    this.email = email
-  }
-
-  updatePhone(phone) {
-    this.phone = phone
-  }
 
   updateSelectedPlan(plan) {
     this.selectedPlan = plan

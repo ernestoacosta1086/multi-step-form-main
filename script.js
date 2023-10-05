@@ -184,14 +184,14 @@ function validateField(field, errorMessage) {
 //Enable functionality to second plan form Cards
 cardsDetails.forEach((card, pos) => {
   card.addEventListener('click', () => {
-    UpdateCardStatus()
+    updateCardStatus()
     card.classList.toggle('plan-details__card--active')
     data.selectedPlan = plans[pos].name
     updatePrice(frequency)
   })
 })
 
-function UpdateCardStatus() {
+function updateCardStatus() {
   cardsDetails.forEach((card) => {
     card.classList.remove('plan-details__card--active')
   })
