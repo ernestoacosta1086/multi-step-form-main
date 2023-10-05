@@ -1,4 +1,4 @@
 export function emptyValidation(textElement) {
-  if (textElement.value === '') return true
+  if (textElement.value.trim() === '') return true
   else return false
 }

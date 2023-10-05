@@ -95,50 +95,40 @@ actionButtonNext.disabled = true
 data.selectedPlan = plans[0].name
 data.priceMonthly = plans.find((plan) => plan.name === data.selectedPlan).monthlyPrice
 
+//Move section to Next
 actionButtonNext.addEventListener('click', () => {
-  retrieveData()
-  globalSectionIndex++
-  changeSection(true)
-  updateButtonStatus()
-  updateStepsStatus()
+  onNavigationButtonClicked(1)
 })
 
-//Set the event to the Previous Button to change between sections
+//Move section to Back
 actionButtonBack.addEventListener('click', () => {
-  retrieveData()
-  globalSectionIndex--
-  changeSection(false)
-  updateButtonStatus()
-  updateStepsStatus()
+  onNavigationButtonClicked(-1)
 })
+
+//Execute this function on clicked buttons
+function onNavigationButtonClicked(sectionNumberChange) {
+  let previousSectionNumber = globalSectionIndex
+  globalSectionIndex += sectionNumberChange
+  changeSection(previousSectionNumber)
+  updateButtonStatus()
+}
 
 //Move to the next or previous section
-function changeSection(isNext) {
-  if (isNext) {
-    sections[globalSectionIndex - 1].classList.toggle('visually-hidden')
-    sections[globalSectionIndex].classList.toggle('visually-hidden')
-  } else {
-    sections[globalSectionIndex + 1].classList.toggle('visually-hidden')
-    sections[globalSectionIndex].classList.toggle('visually-hidden')
-  }
+function changeSection(previousSectionNumber) {
+  sections[previousSectionNumber].classList.toggle('visually-hidden')
+  sections[globalSectionIndex].classList.toggle('visually-hidden')
 }
 
 //Update the buttons status depends on section position
 function updateButtonStatus() {
-  actionButtonBack.style.visibility = 'visible'
+  actionButtonBack.style.visibility = globalSectionIndex === 0 ? 'hidden' : 'visible'
   actionButtonNext.textContent = 'Next step'
   actionButtonNext.classList.remove('action-buttons__next--confirm')
-  if (globalSectionIndex === 0) {
-    actionButtonBack.style.visibility = 'hidden'
-    actionButtonNext.classList.remove('action-buttons__next--confirm')
-  } else if (globalSectionIndex === 2) {
-  } else if (globalSectionIndex === 3) {
-    // change color and text
-    calculateTotal(frequency)
+
+  if (globalSectionIndex === 3) {
     actionButtonNext.classList.add('action-buttons__next--confirm')
     actionButtonNext.textContent = 'Confirm'
   } else if (globalSectionIndex === 4) {
-    // hide all buttons component
     actionButtonsDiv.classList.add('visually-hidden')
   }
 }
@@ -157,38 +147,28 @@ function updateStepsStatus() {
 }
 
 //Personal info validation
-nameInput.addEventListener('blur', () => {
-  validateField(nameInput, emptyErrorName)
-  checkAllValidationToEnableButton()
-})
-nameInput.addEventListener('input', () => {
-  validateField(nameInput, emptyErrorName)
-  checkAllValidationToEnableButton()
-})
-emailInput.addEventListener('blur', () => {
-  validateField(emailInput, emptyErrorEmail)
-  checkAllValidationToEnableButton()
-})
-emailInput.addEventListener('input', () => {
-  validateField(emailInput, emptyErrorEmail)
-  checkAllValidationToEnableButton()
-})
-phoneInput.addEventListener('blur', () => {
-  validateField(phoneInput, emptyErrorPhone)
-  checkAllValidationToEnableButton()
-})
-phoneInput.addEventListener('input', () => {
-  validateField(phoneInput, emptyErrorPhone)
-  checkAllValidationToEnableButton()
-})
+function addInputEventListeners(input, errorSection) {
+  input.addEventListener('blur', () => {
+    validateField(input, errorSection)
+    checkAllValidationToEnableButton()
+  })
+  input.addEventListener('input', () => {
+    validateField(input, errorSection)
+    checkAllValidationToEnableButton()
+  })
+}
+
+addInputEventListeners(nameInput, emptyErrorName)
+addInputEventListeners(emailInput, emptyErrorEmail)
+addInputEventListeners(phoneInput, emptyErrorPhone)
 
 //Check each input to enable the button
+function isFormValid() {
+  return !(emptyValidation(nameInput) || emptyValidation(emailInput) || emptyValidation(phoneInput))
+}
+
 function checkAllValidationToEnableButton() {
-  if (emptyValidation(nameInput) || emptyValidation(emailInput) || emptyValidation(phoneInput)) {
-    actionButtonNext.disabled = true
-  } else {
-    actionButtonNext.disabled = false
-  }
+  actionButtonNext.disabled = !isFormValid()
 }
 
 function validateField(field, errorMessage) {
@@ -196,8 +176,8 @@ function validateField(field, errorMessage) {
     field.style.outlineColor = 'red'
     errorMessage.removeAttribute('hidden')
   } else {
-    errorMessage.setAttribute('hidden', '')
     field.style.outlineColor = 'hsl(229, 24%, 87%)'
+    errorMessage.setAttribute('hidden', '')
   }
 }
 
