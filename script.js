@@ -244,8 +244,7 @@ function updateAddOnsData(switchFrequency) {
 checkAddOns.forEach((addOn, pos) => {
   addOn.addEventListener('click', () => {
     addOnCards[pos].classList.toggle('add-ons__card--active')
-    if (addOn.checked) data.addOns[pos] = addOns[pos]
-    else data.addOns[pos] = ''
+    data.addOns[pos] = addOn.checked ? addOns[pos] : ''
   })
 })
 
