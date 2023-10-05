@@ -24,6 +24,13 @@ let addOnCards = document.querySelectorAll('.add-ons__card')
 let checkAddOns = document.querySelectorAll('.add-on')
 let addOnPrices = document.querySelectorAll('.add-ons__price')
 let totalValue = document.getElementById('total')
+let planName = document.getElementById('plan')
+let planPrice = document.getElementById('planPrice')
+let addOnsNameTotal = document.querySelectorAll('.add-on-name')
+let addOnsPriceTotal = document.querySelectorAll('.add-on-price')
+let addOnsContainer = document.querySelectorAll('.add-on-container')
+let totalLabel = document.querySelector('.finishing-up__total-p')
+let changePlan = document.querySelector('#change')
 
 const plans = [
   {
@@ -86,7 +93,7 @@ updateButtonStatus()
 actionButtonNext.disabled = true
 //Add default plan selected and price
 data.selectedPlan = plans[0].name
-data.priceMonthly = plans.find((plan) => plan.name === data.selectedPlan).priceMonthly
+data.priceMonthly = plans.find((plan) => plan.name === data.selectedPlan).monthlyPrice
 
 actionButtonNext.addEventListener('click', () => {
   retrieveData()
@@ -211,6 +218,7 @@ function UpdateCardStatus() {
 }
 
 let frequency = true
+
 switchFrequency.addEventListener('click', () => {
   frequencyMonthly.classList.toggle('plan-details__frequency--inactive')
   frequencyYearly.classList.toggle('plan-details__frequency--inactive')
@@ -283,22 +291,46 @@ function calculateTotal(frequency) {
   let total = 0
   if (frequency) {
     total = data.priceMonthly
-    console.log('Before addons ' + total)
+    planName.textContent = data.selectedPlan + ' (Monthly)'
+    planPrice.textContent = '$' + data.priceMonthly + '/mo'
     for (let i = 0; i < data.addOns.length; i++) {
       if (data.addOns[i] !== '') {
         total += data.addOns[i].monthlyPrice
+        addOnsContainer[i].classList.remove('visually-hidden')
+        addOnsNameTotal[i].textContent = data.addOns[i].name
+        addOnsPriceTotal[i].textContent = data.addOns[i].priceMonthly
+      } else {
+        addOnsContainer[i].classList.add('visually-hidden')
       }
     }
+    totalLabel.textContent = 'Total (per month)'
+    totalValue.textContent = '$' + total + '/mo'
   } else {
     total = data.priceYearly
+    planName.textContent = data.selectedPlan + ' (Yearly)'
+    planPrice.textContent = '$' + data.priceYearly + '/yr'
     for (let i = 0; i < data.addOns.length; i++) {
       if (data.addOns[i] !== '') {
         total += data.addOns[i].yearlyPrice
+        addOnsContainer[i].classList.remove('visually-hidden')
+        addOnsNameTotal[i].textContent = data.addOns[i].name
+        addOnsPriceTotal[i].textContent = data.addOns[i].priceYearly
+      } else {
+        addOnsContainer[i].classList.add('visually-hidden')
       }
     }
+    totalLabel.textContent = 'Total (per year)'
+    totalValue.textContent = '$' + total + '/yr'
   }
-  totalValue.textContent = total
-  console.log('Total ' + total)
-  console.log(data)
-  console.log('Price ' + parseInt(data.addOns[0].monthlyPrice))
 }
+
+//Change option move to the first step
+changePlan.addEventListener('click', () => {
+  for (let i = 0; i < 3; i++) {
+    retrieveData()
+    globalSectionIndex--
+    changeSection(false)
+    updateButtonStatus()
+    updateStepsStatus()
+  }
+})
