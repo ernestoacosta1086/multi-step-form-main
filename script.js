@@ -32,68 +32,45 @@ let addOnsContainer = document.querySelectorAll('.add-on-container')
 let totalLabel = document.querySelector('.finishing-up__total-p')
 let changePlan = document.querySelector('#change')
 
-const plans = [
-  {
-    name: 'Arcade',
-    priceMonthly: '$9/mo',
-    priceYearly: '$90/yr',
-    monthlyPrice: 9,
-    yearlyPrice: 90,
-  },
-  {
-    name: 'Advance',
-    priceMonthly: '$12/mo',
-    priceYearly: '$120/yr',
-    monthlyPrice: 12,
-    yearlyPrice: 120,
-  },
-  {
-    name: 'Pro',
-    priceMonthly: '$15/mo',
-    priceYearly: '$150/yr',
-    monthlyPrice: 15,
-    yearlyPrice: 150,
-  },
-]
-
-const addOns = [
-  {
-    name: 'Online service',
-    priceMonthly: '$1/mo',
-    priceYearly: '$10/yr',
-    monthlyPrice: 1,
-    yearlyPrice: 10,
-  },
-  {
-    name: 'Larger Storage',
-    priceMonthly: '$2/mo',
-    priceYearly: '$20/yr',
-    monthlyPrice: 2,
-    yearlyPrice: 20,
-  },
-  {
-    name: 'Customizable profile',
-    priceMonthly: '$2/mo',
-    priceYearly: '$20/yr',
-    monthlyPrice: 2,
-    yearlyPrice: 20,
-  },
-]
-
 //Hide all sections except first one
 for (let i = 1; i < sections.length; i++) {
   sections[i].classList.add('visually-hidden')
 }
 
-//Set the event to the Next Button to change between sections
-let globalSectionIndex = 0
-let data = new Info()
-updateStepsStatus()
+//Variable to save all plans data
+let plans = []
+
+//Variable to save plan with all price info and add-ons
+let planObject = new Info()
+
+//Index of the current section
+let currentSectionIndex = 0
+
+// Perform a fetch request to get data from the JSON file
+fetch('./plans.json')
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error('Error in the request')
+    }
+    return response.json()
+  })
+  .then((data) => {
+    plans = data
+    //Add default plan selected and price monthly
+    planObject.selectedPlan = plans[0].name
+    planObject.priceMonthly = plans.find(
+      (plan) => plan.name === planObject.selectedPlan
+    ).monthlyPrice
+  })
+  .catch((error) => {
+    console.error('Error:', error)
+  })
+
+// const addOns =
+
+updateStepsStatus(currentSectionIndex)
 updateButtonStatus()
 actionButtonNext.disabled = true
-//Add default plan selected and price
-data.selectedPlan = plans[0].name
-data.priceMonthly = plans.find((plan) => plan.name === data.selectedPlan).monthlyPrice
 
 //Move section to Next
 actionButtonNext.addEventListener('click', () => {
@@ -105,10 +82,13 @@ actionButtonBack.addEventListener('click', () => {
   onNavigationButtonClicked(-1)
 })
 
-//Execute this function on clicked buttons
+//Execute this function on clicked actions buttons
 function onNavigationButtonClicked(sectionNumberChange) {
-  let previousSectionNumber = globalSectionIndex
-  globalSectionIndex += sectionNumberChange
+  retrieveData()
+  console.log(planObject)
+  let previousSectionNumber = currentSectionIndex
+  currentSectionIndex += sectionNumberChange
+  updateStepsStatus(currentSectionIndex)
   changeSection(previousSectionNumber)
   updateButtonStatus()
 }
@@ -116,34 +96,32 @@ function onNavigationButtonClicked(sectionNumberChange) {
 //Move to the next or previous section
 function changeSection(previousSectionNumber) {
   sections[previousSectionNumber].classList.toggle('visually-hidden')
-  sections[globalSectionIndex].classList.toggle('visually-hidden')
+  sections[currentSectionIndex].classList.toggle('visually-hidden')
 }
 
 //Update the buttons status depends on section position
 function updateButtonStatus() {
-  actionButtonBack.style.visibility = globalSectionIndex === 0 ? 'hidden' : 'visible'
+  actionButtonBack.style.visibility = currentSectionIndex === 0 ? 'hidden' : 'visible'
   actionButtonNext.textContent = 'Next step'
   actionButtonNext.classList.remove('action-buttons__next--confirm')
 
-  if (globalSectionIndex === 3) {
+  if (currentSectionIndex === 3) {
     actionButtonNext.classList.add('action-buttons__next--confirm')
     actionButtonNext.textContent = 'Confirm'
-  } else if (globalSectionIndex === 4) {
+  } else if (currentSectionIndex === 4) {
     actionButtonsDiv.classList.add('visually-hidden')
   }
 }
 
-//Update the steps status depends on section position
-function updateStepsStatus() {
+//Update the aside circle steps status depends on section index
+function updateStepsStatus(currentSectionIndex) {
+  //Make all circles inactive
   stepsItems.forEach((item) => {
     item.classList.remove('side-bar__number--active')
   })
-
-  if (globalSectionIndex === 4) {
-    stepsItems[globalSectionIndex - 1].classList.add('side-bar__number--active')
-  } else {
-    stepsItems[globalSectionIndex].classList.toggle('side-bar__number--active')
-  }
+  //Make circle active depends on currentSectionIndex
+  if (currentSectionIndex < 4)
+    stepsItems[currentSectionIndex].classList.add('side-bar__number--active')
 }
 
 //Personal info validation
@@ -186,7 +164,7 @@ cardsDetails.forEach((card, pos) => {
   card.addEventListener('click', () => {
     updateCardStatus()
     card.classList.toggle('plan-details__card--active')
-    data.selectedPlan = plans[pos].name
+    planObject.selectedPlan = plans[pos].name
     updatePrice(frequency)
   })
 })
@@ -244,24 +222,26 @@ function updateAddOnsData(switchFrequency) {
 checkAddOns.forEach((addOn, pos) => {
   addOn.addEventListener('click', () => {
     addOnCards[pos].classList.toggle('add-ons__card--active')
-    data.addOns[pos] = addOn.checked ? addOns[pos] : ''
+    planObject.addOns[pos] = addOn.checked ? addOns[pos] : ''
   })
 })
 
-//Retrieve data
+//Retrieve name, email and phone to planObject
 function retrieveData() {
-  if (globalSectionIndex === 0) {
-    data.name = nameInput.value
-    data.email = emailInput.value
-    data.phone = phoneInput.value
+  if (currentSectionIndex === 0) {
+    planObject.name = nameInput.value
+    planObject.email = emailInput.value
+    planObject.phone = phoneInput.value
   }
 }
 
 function updatePrice(frequency) {
   if (frequency) {
-    data.priceMonthly = plans.find((plan) => plan.name === data.selectedPlan).monthlyPrice
+    planObject.priceMonthly = plans.find(
+      (plan) => plan.name === planObject.selectedPlan
+    ).monthlyPrice
   } else {
-    data.priceYearly = plans.find((plan) => plan.name === data.selectedPlan).yearlyPrice
+    planObject.priceYearly = plans.find((plan) => plan.name === planObject.selectedPlan).yearlyPrice
   }
 }
 
@@ -269,15 +249,15 @@ function updatePrice(frequency) {
 function calculateTotal(frequency) {
   let total = 0
   if (frequency) {
-    total = data.priceMonthly
-    planName.textContent = data.selectedPlan + ' (Monthly)'
-    planPrice.textContent = '$' + data.priceMonthly + '/mo'
-    for (let i = 0; i < data.addOns.length; i++) {
-      if (data.addOns[i] !== '') {
-        total += data.addOns[i].monthlyPrice
+    total = planObject.priceMonthly
+    planName.textContent = planObject.selectedPlan + ' (Monthly)'
+    planPrice.textContent = '$' + planObject.priceMonthly + '/mo'
+    for (let i = 0; i < planObject.addOns.length; i++) {
+      if (planObject.addOns[i] !== '') {
+        total += planObject.addOns[i].monthlyPrice
         addOnsContainer[i].classList.remove('visually-hidden')
-        addOnsNameTotal[i].textContent = data.addOns[i].name
-        addOnsPriceTotal[i].textContent = data.addOns[i].priceMonthly
+        addOnsNameTotal[i].textContent = planObject.addOns[i].name
+        addOnsPriceTotal[i].textContent = planObject.addOns[i].priceMonthly
       } else {
         addOnsContainer[i].classList.add('visually-hidden')
       }
@@ -285,15 +265,15 @@ function calculateTotal(frequency) {
     totalLabel.textContent = 'Total (per month)'
     totalValue.textContent = '$' + total + '/mo'
   } else {
-    total = data.priceYearly
-    planName.textContent = data.selectedPlan + ' (Yearly)'
-    planPrice.textContent = '$' + data.priceYearly + '/yr'
-    for (let i = 0; i < data.addOns.length; i++) {
-      if (data.addOns[i] !== '') {
-        total += data.addOns[i].yearlyPrice
+    total = planObject.priceYearly
+    planName.textContent = planObject.selectedPlan + ' (Yearly)'
+    planPrice.textContent = '$' + planObject.priceYearly + '/yr'
+    for (let i = 0; i < planObject.addOns.length; i++) {
+      if (planObject.addOns[i] !== '') {
+        total += planObject.addOns[i].yearlyPrice
         addOnsContainer[i].classList.remove('visually-hidden')
-        addOnsNameTotal[i].textContent = data.addOns[i].name
-        addOnsPriceTotal[i].textContent = data.addOns[i].priceYearly
+        addOnsNameTotal[i].textContent = planObject.addOns[i].name
+        addOnsPriceTotal[i].textContent = planObject.addOns[i].priceYearly
       } else {
         addOnsContainer[i].classList.add('visually-hidden')
       }
@@ -303,13 +283,13 @@ function calculateTotal(frequency) {
   }
 }
 
-//Change option move to the first step
-changePlan.addEventListener('click', () => {
-  for (let i = 0; i < 3; i++) {
-    retrieveData()
-    globalSectionIndex--
-    changeSection(false)
-    updateButtonStatus()
-    updateStepsStatus()
-  }
-})
+// //Change option move to the first step
+// changePlan.addEventListener('click', () => {
+//   for (let i = 0; i < 3; i++) {
+//     retrieveData()
+//     currentSectionIndex--
+//     changeSection(false)
+//     updateButtonStatus()
+//     updateStepsStatus()
+//   }
+// })

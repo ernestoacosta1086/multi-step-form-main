@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Online service",
+    "priceMonthly": "$1/mo",
+    "priceYearly": "$10/yr",
+    "monthlyPrice": 1,
+    "yearlyPrice": 10
+  },
+  {
+    "name": "Larger Storage",
+    "priceMonthly": "$2/mo",
+    "priceYearly": "$20/yr",
+    "monthlyPrice": 2,
+    "yearlyPrice": 20
+  },
+  {
+    "name": "Customizable profile",
+    "priceMonthly": "$2/mo",
+    "priceYearly": "$20/yr",
+    "monthlyPrice": 2,
+    "yearlyPrice": 20
+  }
+]

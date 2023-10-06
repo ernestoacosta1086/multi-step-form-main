@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Arcade",
+    "priceMonthly": "$9/mo",
+    "priceYearly": "$90/yr",
+    "monthlyPrice": 9,
+    "yearlyPrice": 90
+  },
+  {
+    "name": "Advance",
+    "priceMonthly": "$12/mo",
+    "priceYearly": "$120/yr",
+    "monthlyPrice": 12,
+    "yearlyPrice": 120
+  },
+  {
+    "name": "Pro",
+    "priceMonthly": "$15/mo",
+    "priceYearly": "$150/yr",
+    "monthlyPrice": 15,
+    "yearlyPrice": 150
+  }
+]
