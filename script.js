@@ -17,7 +17,7 @@ let emptyErrorPhone = document.querySelector('#error-empty-phone')
 let cardsDetails = document.querySelectorAll('.plan-details__card')
 let frequencyMonthly = document.querySelector('#monthly')
 let frequencyYearly = document.querySelector('#yearly')
-let switchFrequency = document.querySelector('.plan_details__switch')
+let switchFrequencyElement = document.querySelector('.plan_details__switch')
 let listOfPrices = document.querySelectorAll('#price')
 let trials = document.querySelectorAll('.plan-details__trial')
 let addOnCards = document.querySelectorAll('.add-ons__card')
@@ -37,8 +37,9 @@ for (let i = 1; i < sections.length; i++) {
   sections[i].classList.add('visually-hidden')
 }
 
-//Variable to save all plans data
+//Variables to save all plans and add-ons data
 let plans = []
+let addOns = []
 
 //Variable to save plan with all price info and add-ons
 let planObject = new Info()
@@ -46,11 +47,14 @@ let planObject = new Info()
 //Index of the current section
 let currentSectionIndex = 0
 
-// Perform a fetch request to get data from the JSON file
+//Variable to toggle frequency Monthly/Yearly
+let currentFrequency = 'monthly'
+
+// Perform a fetch request to get plans data from the JSON file
 fetch('./plans.json')
   .then((response) => {
     if (!response.ok) {
-      throw new Error('Error in the request')
+      throw new Error('Error in the plans request')
     }
     return response.json()
   })
@@ -60,14 +64,28 @@ fetch('./plans.json')
     planObject.selectedPlan = plans[0].name
     planObject.priceMonthly = plans.find(
       (plan) => plan.name === planObject.selectedPlan
-    ).monthlyPrice
+    ).priceMonthly
   })
   .catch((error) => {
     console.error('Error:', error)
   })
 
-// const addOns =
+// Perform a fetch request to get plans data from the JSON file
+fetch('./add-ons.json')
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error('Error in the add-ons request')
+    }
+    return response.json()
+  })
+  .then((data) => {
+    addOns = data
+  })
+  .catch((error) => {
+    console.error('Error:', error)
+  })
 
+//Set initial configuration
 updateStepsStatus(currentSectionIndex)
 updateButtonStatus()
 actionButtonNext.disabled = true
@@ -85,7 +103,6 @@ actionButtonBack.addEventListener('click', () => {
 //Execute this function on clicked actions buttons
 function onNavigationButtonClicked(sectionNumberChange) {
   retrieveData()
-  console.log(planObject)
   let previousSectionNumber = currentSectionIndex
   currentSectionIndex += sectionNumberChange
   updateStepsStatus(currentSectionIndex)
@@ -106,6 +123,7 @@ function updateButtonStatus() {
   actionButtonNext.classList.remove('action-buttons__next--confirm')
 
   if (currentSectionIndex === 3) {
+    calculateTotal(currentFrequency)
     actionButtonNext.classList.add('action-buttons__next--confirm')
     actionButtonNext.textContent = 'Confirm'
   } else if (currentSectionIndex === 4) {
@@ -119,12 +137,12 @@ function updateStepsStatus(currentSectionIndex) {
   stepsItems.forEach((item) => {
     item.classList.remove('side-bar__number--active')
   })
-  //Make circle active depends on currentSectionIndex
+  //Make circle active depends on currentSectionIndex not for the last section
   if (currentSectionIndex < 4)
     stepsItems[currentSectionIndex].classList.add('side-bar__number--active')
 }
 
-//Personal info validation
+//Add multiples event listener
 function addInputEventListeners(input, errorSection) {
   input.addEventListener('blur', () => {
     validateField(input, errorSection)
@@ -135,7 +153,7 @@ function addInputEventListeners(input, errorSection) {
     checkAllValidationToEnableButton()
   })
 }
-
+//Personal info validation
 addInputEventListeners(nameInput, emptyErrorName)
 addInputEventListeners(emailInput, emptyErrorEmail)
 addInputEventListeners(phoneInput, emptyErrorPhone)
@@ -165,7 +183,7 @@ cardsDetails.forEach((card, pos) => {
     updateCardStatus()
     card.classList.toggle('plan-details__card--active')
     planObject.selectedPlan = plans[pos].name
-    updatePrice(frequency)
+    updatePrice(currentFrequency)
   })
 })
 
@@ -175,54 +193,66 @@ function updateCardStatus() {
   })
 }
 
-let frequency = true
-
-switchFrequency.addEventListener('click', () => {
+//
+switchFrequencyElement.addEventListener('click', () => {
   frequencyMonthly.classList.toggle('plan-details__frequency--inactive')
   frequencyYearly.classList.toggle('plan-details__frequency--inactive')
-  switchFrequency.classList.toggle('flipped')
-  frequency = !frequency
-  updateCardsData(frequency)
-  updateAddOnsData(frequency)
-
-  updatePrice(frequency)
+  switchFrequencyElement.classList.toggle('flipped')
+  //Switch between monthly and yearly
+  currentFrequency = currentFrequency === 'monthly' ? 'yearly' : 'monthly'
+  //Change the visual value of the price
+  updateCardsData(currentFrequency)
+  //Add data to the plan Object
+  updatePrice(currentFrequency)
+  updateAddOnsData(currentFrequency)
 })
 
-function updateCardsData(switchFrequency) {
-  if (switchFrequency) {
-    listOfPrices.forEach((price, pos) => {
-      price.textContent = plans[pos].priceMonthly
-      trials.forEach((trial) => {
-        trial.style.display = 'none'
+//Update visual plan prices
+function updateCardsData(frequency) {
+  switch (frequency) {
+    case 'monthly':
+      listOfPrices.forEach((price, pos) => {
+        price.textContent = '$' + plans[pos].priceMonthly + '/mo'
+        trials.forEach((trial) => {
+          trial.style.display = 'none'
+        })
       })
-    })
-  } else {
-    listOfPrices.forEach((price, pos) => {
-      price.textContent = plans[pos].priceYearly
-      trials.forEach((trial) => {
-        trial.style.display = 'block'
+      break
+    case 'yearly':
+      listOfPrices.forEach((price, pos) => {
+        price.textContent = '$' + plans[pos].priceYearly + '/yr'
+        trials.forEach((trial) => {
+          trial.style.display = 'block'
+        })
       })
-    })
+      break
+    default:
   }
 }
 
-function updateAddOnsData(switchFrequency) {
-  if (switchFrequency) {
-    addOnPrices.forEach((price, pos) => {
-      price.textContent = addOns[pos].priceMonthly
-    })
-  } else {
-    addOnPrices.forEach((price, pos) => {
-      price.textContent = addOns[pos].priceYearly
-    })
+//Update add-ons visual prices
+function updateAddOnsData(frequency) {
+  switch (frequency) {
+    case 'monthly':
+      addOnPrices.forEach((price, pos) => {
+        price.textContent = '+$' + addOns[pos].priceMonthly + '/mo'
+      })
+      break
+    case 'yearly':
+      addOnPrices.forEach((price, pos) => {
+        price.textContent = '+$' + addOns[pos].priceYearly + '/yr'
+      })
+      break
+    default:
   }
 }
 
-//Add-on cards
+//Added event click to each Add-on card and add each to plan Object
 checkAddOns.forEach((addOn, pos) => {
   addOn.addEventListener('click', () => {
     addOnCards[pos].classList.toggle('add-ons__card--active')
     planObject.addOns[pos] = addOn.checked ? addOns[pos] : ''
+    console.log(planObject.addOns)
   })
 })
 
@@ -235,61 +265,63 @@ function retrieveData() {
   }
 }
 
+//Update price in the plan object
 function updatePrice(frequency) {
-  if (frequency) {
-    planObject.priceMonthly = plans.find(
-      (plan) => plan.name === planObject.selectedPlan
-    ).monthlyPrice
-  } else {
-    planObject.priceYearly = plans.find((plan) => plan.name === planObject.selectedPlan).yearlyPrice
+  switch (frequency) {
+    case 'monthly':
+      planObject.priceMonthly = plans.find(
+        (plan) => plan.name === planObject.selectedPlan
+      ).priceMonthly
+      break
+    case 'yearly':
+      planObject.priceYearly = plans.find(
+        (plan) => plan.name === planObject.selectedPlan
+      ).priceYearly
+      break
+    default:
   }
 }
 
 //Calculate total
 function calculateTotal(frequency) {
-  let total = 0
-  if (frequency) {
-    total = planObject.priceMonthly
-    planName.textContent = planObject.selectedPlan + ' (Monthly)'
-    planPrice.textContent = '$' + planObject.priceMonthly + '/mo'
-    for (let i = 0; i < planObject.addOns.length; i++) {
-      if (planObject.addOns[i] !== '') {
-        total += planObject.addOns[i].monthlyPrice
-        addOnsContainer[i].classList.remove('visually-hidden')
-        addOnsNameTotal[i].textContent = planObject.addOns[i].name
-        addOnsPriceTotal[i].textContent = planObject.addOns[i].priceMonthly
-      } else {
-        addOnsContainer[i].classList.add('visually-hidden')
+  switch (frequency) {
+    case 'monthly':
+      planName.textContent = planObject.selectedPlan + ' (Monthly)'
+      planPrice.textContent = '$' + planObject.priceMonthly + '/mo'
+      for (let i = 0; i < planObject.addOns.length; i++) {
+        if (planObject.addOns[i] !== '') {
+          addOnsContainer[i].classList.remove('visually-hidden')
+          addOnsNameTotal[i].textContent = planObject.addOns[i].name
+          addOnsPriceTotal[i].textContent = '+$' + planObject.addOns[i].priceMonthly + '/mo'
+        } else {
+          addOnsContainer[i].classList.add('visually-hidden')
+        }
       }
-    }
-    totalLabel.textContent = 'Total (per month)'
-    totalValue.textContent = '$' + total + '/mo'
-  } else {
-    total = planObject.priceYearly
-    planName.textContent = planObject.selectedPlan + ' (Yearly)'
-    planPrice.textContent = '$' + planObject.priceYearly + '/yr'
-    for (let i = 0; i < planObject.addOns.length; i++) {
-      if (planObject.addOns[i] !== '') {
-        total += planObject.addOns[i].yearlyPrice
-        addOnsContainer[i].classList.remove('visually-hidden')
-        addOnsNameTotal[i].textContent = planObject.addOns[i].name
-        addOnsPriceTotal[i].textContent = planObject.addOns[i].priceYearly
-      } else {
-        addOnsContainer[i].classList.add('visually-hidden')
+      totalLabel.textContent = 'Total (per month)'
+      totalValue.textContent = '$' + planObject.getTotal('monthly') + '/mo'
+      break
+    case 'yearly':
+      planName.textContent = planObject.selectedPlan + ' (Yearly)'
+      planPrice.textContent = '$' + planObject.priceYearly + '/yr'
+
+      for (let i = 0; i < planObject.addOns.length; i++) {
+        if (planObject.addOns[i] !== '') {
+          addOnsContainer[i].classList.remove('visually-hidden')
+          console.log(addOns)
+          addOnsNameTotal[i].textContent = planObject.addOns[i].name
+          addOnsPriceTotal[i].textContent = '+$' + planObject.addOns[i].priceYearly + '/yr'
+        } else {
+          addOnsContainer[i].classList.add('visually-hidden')
+        }
       }
-    }
-    totalLabel.textContent = 'Total (per year)'
-    totalValue.textContent = '$' + total + '/yr'
+      totalLabel.textContent = 'Total (per year)'
+      totalValue.textContent = '$' + planObject.getTotal('yearly') + '/yr'
+      break
+    default:
   }
 }
 
-// //Change option move to the first step
-// changePlan.addEventListener('click', () => {
-//   for (let i = 0; i < 3; i++) {
-//     retrieveData()
-//     currentSectionIndex--
-//     changeSection(false)
-//     updateButtonStatus()
-//     updateStepsStatus()
-//   }
-// })
+//Change option move to the first form
+changePlan.addEventListener('click', () => {
+  onNavigationButtonClicked(-3)
+})
