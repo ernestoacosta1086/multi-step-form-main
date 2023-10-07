@@ -252,7 +252,6 @@ checkAddOns.forEach((addOn, pos) => {
   addOn.addEventListener('click', () => {
     addOnCards[pos].classList.toggle('add-ons__card--active')
     planObject.addOns[pos] = addOn.checked ? addOns[pos] : ''
-    console.log(planObject.addOns)
   })
 })
 
@@ -307,7 +306,6 @@ function calculateTotal(frequency) {
       for (let i = 0; i < planObject.addOns.length; i++) {
         if (planObject.addOns[i] !== '') {
           addOnsContainer[i].classList.remove('visually-hidden')
-          console.log(addOns)
           addOnsNameTotal[i].textContent = planObject.addOns[i].name
           addOnsPriceTotal[i].textContent = '+$' + planObject.addOns[i].priceYearly + '/yr'
         } else {
