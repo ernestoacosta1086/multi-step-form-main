@@ -6,45 +6,31 @@ class Info {
     this.selectedPlan = ''
     this.priceMonthly = 0
     this.priceYearly = 0
-    this.addOns = ['']
+    this.addOns = ['', '', '']
   }
 
-  // Methods to update data for each section of the form
-  updateName(name) {
-    this.name = name
-  }
+  //Calculate the total value of plan plus addons depends on frequency
+  getTotal(frequency) {
+    let sum = 0
+    switch (frequency) {
+      case 'monthly':
+        this.addOns.forEach((addon) => {
+          const priceMonthly = parseInt(addon.priceMonthly, 10)
+          if (!isNaN(priceMonthly)) {
+            sum += priceMonthly
+          }
+        })
+        return sum + parseInt(this.priceMonthly, 10)
+      case 'yearly':
+        this.addOns.forEach((addon) => {
+          const priceYearly = parseInt(addon.priceYearly, 10)
+          if (!isNaN(priceYearly)) {
+            sum += priceYearly
+          }
+        })
+        return sum + parseInt(this.priceYearly, 10)
 
-  updateEmail(email) {
-    this.email = email
-  }
-
-  updatePhone(phone) {
-    this.phone = phone
-  }
-
-  updateSelectedPlan(plan) {
-    this.selectedPlan = plan
-  }
-
-  updatePriceMonthly(priceMonthly) {
-    this.priceMonthly = priceMonthly
-  }
-
-  updatePriceYearly(priceYearly) {
-    this.priceYearly = priceYearly
-  }
-
-  // Method to add or remove add-ons
-  addAddOn(addOn) {
-    if (!this.addOns.includes(addOn)) {
-      this.addOns.push(addOn)
-    }
-  }
-
-  removeAddOn(addOn) {
-    const index = this.addOns.indexOf(addOn)
-    if (index !== -1) {
-      this.addOns.splice(index, 1)
+      default:
     }
   }
 }
