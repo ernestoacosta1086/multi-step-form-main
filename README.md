@@ -24,8 +24,8 @@ This is a solution to the [Multi-step form challenge on Frontend Mentor](https:/
     - [Plan Selection](#plan-selection)
     - [Frequency Switching](#frequency-switching)
     - [Price Calculation](#price-calculation)
-    - [Continued development](#continued-development)
-    - [Useful resources](#useful-resources)
+  - [Continued development](#continued-development)
+  - [Useful resources](#useful-resources)
   - [Author](#author)
 
 **Note: Delete this note and update the table of contents based on what sections you keep.**
