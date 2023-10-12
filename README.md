@@ -47,8 +47,12 @@ Users should be able to:
   - A step is submitted, but no selection has been made
 
 ### Screenshot
+<img width="1108" alt="image" src="https://github.com/ernestoacosta1086/multi-step-form-main/assets/16359439/d32752cc-7a99-4701-a88f-286058488db0">
+<img width="1108" alt="image" src="https://github.com/ernestoacosta1086/multi-step-form-main/assets/16359439/20ba1493-0e1e-4bb5-966a-7a8641c295f7">
+<img width="1108" alt="image" src="https://github.com/ernestoacosta1086/multi-step-form-main/assets/16359439/bf268f40-ff7e-4991-8aaf-5c4eaeafe928">
+<img width="1108" alt="image" src="https://github.com/ernestoacosta1086/multi-step-form-main/assets/16359439/505eefaa-c1e8-4433-9aa0-b29fdd21b2cb">
+<img width="1108" alt="image" src="https://github.com/ernestoacosta1086/multi-step-form-main/assets/16359439/bde65f7d-2059-4375-a2b0-0a9a9e990d3f">
 
-![](./screenshot.jpg)
 
 ### Links
 
@@ -261,11 +265,11 @@ function calculateTotal(frequency) {
 }
 ```
 
-### Continued development
+## Continued development
 
 I'm keen to highlight my growing passion for exploring the intricacies of JavaScript in future projects. I understand the pivotal role of JavaScript in creating dynamic and interactive web applications. I'm eager to delve deeper into JavaScript, learning about its advanced features, libraries, and frameworks to build robust and feature-rich applications. My goal is to become proficient in writing clean and efficient JavaScript code, enabling me to create engaging user experiences and enhance the functionality of web applications.
 
-### Useful resources
+## Useful resources
 
 - [mdn web docs](https://developer.mozilla.org/en-US/docs/Learn/CSS) - This documentation is too good and provides several examples to understand all the concepts in simple ways.
 - [Udemy](https://www.udemy.com) - This is a very rich source of knowledge where good teachers provide the best courses.
